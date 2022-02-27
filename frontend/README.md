@@ -1,4 +1,4 @@
-# Fullstack Medical Real-Time Chat App
+# Fullstack Medical Assistance Real-Time Chat App
 
 We used [Stream API](https://gstrm.io/js-mastery) for building an online real-time chat application with tons of features
 
