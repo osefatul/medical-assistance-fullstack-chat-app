@@ -3,8 +3,10 @@ import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
 import { ChannelListContainer, ChannelContainer, Auth } from "./components";
-const apiKey = "a2cd8h4zdrqp";
 
+const cookies = new Cookies();
+
+const apiKey = "a2cd8h4zdrqp";
 //creat an instance of stream chat client
 const client = StreamChat.getInstance(apiKey);
 const authToken = false; //for login
