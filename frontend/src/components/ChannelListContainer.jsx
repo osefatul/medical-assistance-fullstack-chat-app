@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import Cookies from "universal-cookie";
-
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 import HospitalIcon from "../assets/hospital.png";
 import LogoutIcon from "../assets/logout.png";
+
+const cookies = new Cookies();
 
 const SideBar = ({ logout }) => (
   <div className="channel-list__sidebar">
@@ -20,7 +21,7 @@ const SideBar = ({ logout }) => (
     </div>
   </div>
 );
-
+// ------------------------------------------------------------------------------------------------
 const CompanyHeader = () => {
   return (
     <div className="channel-list__header">
@@ -29,10 +30,28 @@ const CompanyHeader = () => {
   );
 };
 
+// ------------------------------------------------------------------------------------------------
+
+// Logout button function
+const logout = () => {
+  cookies.remove("token");
+  cookies.remove("userId");
+  cookies.remove("username");
+  cookies.remove("fullName");
+  cookies.remove("avatarURL");
+  cookies.remove("hashedPassword");
+  cookies.remove("phoneNumber");
+
+  window.location.reload();
+};
+
+// ------------------------------------------------------------------------------------------------______________
+
+// Container
 function ChannelListContainer() {
   return (
     <>
-      <SideBar />
+      <SideBar logout={logout} />
 
       <div className="channel-list__list__wrapper">
         <CompanyHeader />
