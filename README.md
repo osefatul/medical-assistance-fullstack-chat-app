@@ -4,6 +4,6 @@ We used [Stream API](https://gstrm.io/js-mastery) for building an online real-ti
 
 ### Libraries
 
-1- stream-chat
+1- [stream-chat](https://getstream.io/chat/docs/react/?language=javascript)
 2- stream-chat-reactor
 3- universal-cookie
