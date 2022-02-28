@@ -4,26 +4,30 @@ import { userList } from "./";
 import { closeCreateChannel } from "../assets/CloseCreateChannel";
 
 const ChannelNameInput = ({ channelName = "", setChannelName }) => {
-  const handleChange = (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    event.preventDefault();
 
-    setChannelName(e.target.value);
+    setChannelName(event.target.value);
   };
+
   return (
-    <div className="channel-name-input_wrapper">
+    <div className="channel-name-input__wrapper">
       <p>Name</p>
       <input
-        type="text"
         value={channelName}
         onChange={handleChange}
-        placeholder="channel-name (np spaces)"
+        placeholder="channel-name"
       />
       <p>Add Members</p>
     </div>
   );
 };
 function CreateChannel() {
-  return <div>CreateChannel</div>;
+  return (
+    <div>
+      <ChannelNameInput />
+    </div>
+  );
 }
 
 export default CreateChannel;
