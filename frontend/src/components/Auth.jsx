@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
+
 import signinImage from "../assets/signup.jpg";
 
 const cookies = new Cookies();
@@ -15,27 +16,24 @@ const initialState = {
 };
 
 function Auth() {
-  const [isSignup, setIsSignup] = useState(true);
   const [form, setForm] = useState(initialState);
-
-  const switchMode = (e) => {
-    setIsSignup((prevIsSignup) => !prevIsSignup);
-  };
+  const [isSignup, setIsSignup] = useState(true);
 
   const handleChange = (e) => {
-    e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { username, password, phoneNumber, avatarURL } = form;
 
-    const URL = "https://localhost:5000/auth";
+    const URL = "http://localhost:5000/auth";
+    // const URL = 'https://medical-pager.herokuapp.com/auth';
 
     const {
       data: { token, userId, hashedPassword, fullName },
-    } = axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
+    } = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
       username,
       password,
       fullName: form.fullName,
@@ -51,11 +49,15 @@ function Auth() {
 
     if (isSignup) {
       cookies.set("phoneNumber", phoneNumber);
-      cookies.set("avatarUrl", avatarURL);
+      cookies.set("avatarURL", avatarURL);
       cookies.set("hashedPassword", hashedPassword);
     }
 
     window.location.reload();
+  };
+
+  const switchMode = () => {
+    setIsSignup((prevIsSignup) => !prevIsSignup);
   };
 
   return (
