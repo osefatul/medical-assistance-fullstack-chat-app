@@ -29,17 +29,14 @@ const UserItem = ({ user, setSelectedUsers }) => {
 
     setSelected((prevSelected) => !prevSelected);
   };
+
   return (
-    <div className="user-item__wrapp" onClick={handleSelect}>
+    <div className="user-item__wrapper" onClick={handleSelect}>
       <div className="user-item__name-wrapper">
         <Avatar image={user.image} name={user.fullName || user.id} size={32} />
         <p className="user-item__name">{user.fullName || user.id}</p>
       </div>
-      {selected ? (
-        <InviteIcon />
-      ) : (
-        <div className="user-item__invite-empty"></div>
-      )}
+      {selected ? <InviteIcon /> : <div className="user-item__invite-empty" />}
     </div>
   );
 };
@@ -59,7 +56,7 @@ const UserList = ({ setSelectedUsers }) => {
 
       try {
         const response = await client.queryUsers(
-          { id: { $ne: client.userID } }, //remove the client userid
+          { id: { $ne: client.userID } },
           { id: 1 },
           { limit: 8 }
         );
@@ -99,12 +96,12 @@ const UserList = ({ setSelectedUsers }) => {
   return (
     <ListContainer>
       {loading ? (
-        <div className="user-list__message"> Loading users... </div>
+        <div className="user-list__message">Loading users...</div>
       ) : (
         users?.map((user, i) => (
           <UserItem
             index={i}
-            key={user.i}
+            key={user.id}
             user={user}
             setSelectedUsers={setSelectedUsers}
           />
