@@ -20,8 +20,8 @@ const UserItem = ({ user, setSelectedUsers }) => {
 
   const handleSelect = () => {
     if (selected) {
-      setSelectedUsers((prevUsers) =>
-        prevUsers.filter((prevUser) => prevUser !== user.id)
+      setSelectedUsers(
+        (prevUsers) => prevUsers.filter((prevUser) => prevUser !== user.id) //if usericon was already selected, after click it will filter out from the selected users list
       );
     } else {
       setSelectedUsers((prevUsers) => [...prevUsers, user.id]);
@@ -50,13 +50,13 @@ const UserList = ({ setSelectedUsers }) => {
 
   useEffect(() => {
     const getUsers = async () => {
-      if (loading) return;
+      if (loading) return; // if loading then get outside of the function, we dont want to fetch user.
 
       setLoading(true);
 
       try {
         const response = await client.queryUsers(
-          { id: { $ne: client.userID } },
+          { id: { $ne: client.userID } }, //exclude use from the users list to be added
           { id: 1 },
           { limit: 8 }
         );
@@ -88,7 +88,7 @@ const UserList = ({ setSelectedUsers }) => {
   if (listEmpty) {
     return (
       <ListContainer>
-        <div className="user-list__message">No users found.</div>
+        <div className="user-list__message">No user found.</div>
       </ListContainer>
     );
   }

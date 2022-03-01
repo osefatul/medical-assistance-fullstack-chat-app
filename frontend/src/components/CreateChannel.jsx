@@ -25,6 +25,8 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
 
 function CreateChannel({ createType, setIsCreating }) {
   const [channelName, setChannelName] = useState("");
+  const { client, setActiveChannel } = useChatContext();
+  const [selectedUsers, setSelectedUsers] = useState([client.userID || ""]); // To track which user is selected or select multiple users. it immediatly add the client users as initial value
   return (
     <div className="create-channel__container">
       <div className="create-channel__header">
@@ -41,7 +43,7 @@ function CreateChannel({ createType, setIsCreating }) {
           setChannelName={setChannelName}
         />
       )}
-      <UserList />
+      <UserList setSelectedUsers={setSelectedUsers} />
     </div>
   );
 }
