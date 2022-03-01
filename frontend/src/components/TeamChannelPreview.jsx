@@ -20,7 +20,7 @@ function TeamChannelPreview({
   const DirectPreview = () => {
     // In JS each object has key and value. so the below code gives us all the values of channel.state.members
 
-    // client the active user who is logged in
+    // client- the active user who is logged in
     const members = Object.values(channel.state.members).filter(
       ({ user }) => user.id !== client.userID
     );

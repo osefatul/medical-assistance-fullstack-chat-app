@@ -5,6 +5,7 @@ import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 import HospitalIcon from "../assets/hospital.png";
 import LogoutIcon from "../assets/logout.png";
 
+// cookeis have been intialized here to get the token and the id
 const cookies = new Cookies();
 
 const SideBar = ({ logout }) => (
@@ -21,7 +22,9 @@ const SideBar = ({ logout }) => (
     </div>
   </div>
 );
+
 // ------------------------------------------------------------------------------------------------
+// This one is modifiable.
 const CompanyHeader = () => {
   return (
     <div className="channel-list__header">
@@ -49,10 +52,10 @@ const ChannelListContent = ({
   setIsEditing,
   setToggleContainer,
 }) => {
+  // extract the client that has been connected
   const { client } = useChatContext();
 
   // Logout button function
-
   const logout = () => {
     cookies.remove("token");
     cookies.remove("userId");
@@ -65,6 +68,7 @@ const ChannelListContent = ({
     window.location.reload();
   };
 
+  // filter all the members where the client user has alrady been with in a channel.
   const filters = { members: { $in: [client.userID] } };
 
   return (
