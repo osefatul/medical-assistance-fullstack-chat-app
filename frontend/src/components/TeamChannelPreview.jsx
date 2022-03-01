@@ -43,6 +43,7 @@ function TeamChannelPreview({
           ? "channel-preview__wrapper__selected"
           : "channel-preview__wrapper"
       }
+      // click on channel to open that conversation
       onClick={() => {
         setIsCreating(false);
         setIsEditing(false);

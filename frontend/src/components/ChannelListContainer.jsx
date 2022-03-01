@@ -69,7 +69,7 @@ const ChannelListContent = ({
     window.location.reload();
   };
 
-  // to find a channel that the client is a part of then we have to filter out channel members and find where the client user is included.
+  // to find a channels and direct msgs that the client is a part of then we have to filter out channel members and find where the client user is included.
   const filters = { members: { $in: [client.userID] } };
 
   return (

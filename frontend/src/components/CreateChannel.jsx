@@ -40,7 +40,13 @@ function CreateChannel({ createType, setIsCreating }) {
 
       // watch - Loads the initial channel state and watches for changes
       await newChannel.watch();
-    } catch (e) {}
+      setChannelName(""); //the input for wrinting channel name should be erased once clicked on.
+      setIsCreating(false); //no longer creating channel
+      setSelectedUsers([client.userID]); //empty the array except containing the client.
+      setActiveChannel(newChannel); //newChannel will open and will be active.
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
