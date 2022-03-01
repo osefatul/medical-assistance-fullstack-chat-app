@@ -8,6 +8,7 @@ import LogoutIcon from "../assets/logout.png";
 // cookeis have been intialized here to get the token and the id
 const cookies = new Cookies();
 
+// ICONS SIDEBAR
 const SideBar = ({ logout }) => (
   <div className="channel-list__sidebar">
     <div className="channel-list__sidebar__icon1">
@@ -68,7 +69,7 @@ const ChannelListContent = ({
     window.location.reload();
   };
 
-  // filter all the members where the client user has alrady been with in a channel.
+  // to find a channel that the client is a part of then we have to filter out channel members and find where the client user is included.
   const filters = { members: { $in: [client.userID] } };
 
   return (

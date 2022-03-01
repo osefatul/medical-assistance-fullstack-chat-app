@@ -22,6 +22,7 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
     </div>
   );
 };
+
 function CreateChannel({ createType, setIsCreating }) {
   const [channelName, setChannelName] = useState("");
   return (
