@@ -9,7 +9,7 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
 
     setChannelName(event.target.value);
   };
-
+  const history = () => {};
   return (
     <div className="channel-name-input__wrapper">
       <p>Name</p>
