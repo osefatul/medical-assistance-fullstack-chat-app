@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useChatContext } from "stream-chat-react";
+
 import { UserList } from "./";
 import { CloseCreateChannel } from "../assets";
 
@@ -23,24 +24,22 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
   );
 };
 
-function EditChannel({ setIsEditing }) {
+const EditChannel = ({ setIsEditing }) => {
   const { channel } = useChatContext();
   const [channelName, setChannelName] = useState(channel?.data?.name); //if there is a channel name we try to get it from the channel
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const updateChannel = async (e) => {
-    e.preventDefault();
+  const updateChannel = async (event) => {
+    event.preventDefault();
 
     const nameChanged = channelName !== (channel.data.name || channel.data.id); //check the name of the channel is changed
-
     // if channel names is changed then
     if (nameChanged) {
       await channel.update(
-        { name: nameChanged },
+        { name: channelName },
         { text: `Channel name changed to ${channelName}` }
       );
     }
-
     // if user is added or removed.
     if (selectedUsers.length) {
       await channel.addMembers(selectedUsers);
@@ -50,6 +49,7 @@ function EditChannel({ setIsEditing }) {
     setIsEditing(false);
     setSelectedUsers([]);
   };
+
   return (
     <div className="edit-channel__container">
       <div className="edit-channel__header">
@@ -60,12 +60,12 @@ function EditChannel({ setIsEditing }) {
         channelName={channelName}
         setChannelName={setChannelName}
       />
-      <UserList setSelectedUsers={selectedUsers} />
+      <UserList setSelectedUsers={setSelectedUsers} />
       <div className="edit-channel__button-wrapper" onClick={updateChannel}>
         <p>Save Changes</p>
       </div>
     </div>
   );
-}
+};
 
 export default EditChannel;
