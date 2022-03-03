@@ -23,12 +23,27 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
   );
 };
 
-function EditChannel() {
+function EditChannel({ setIsEditing }) {
   const { channel } = useChatContext();
   const [channelName, setChannelName] = useState(channel?.data?.name); //if there is a channel name we try to get it from the channel
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  return <div>EditChannel</div>;
+  return (
+    <div className="edit-channel__container">
+      <div className="edit-channel__header">
+        <p>Edit Channel</p>
+        <CloseCreateChannel setIsEditing={setIsEditing} />
+      </div>
+      <ChannelNameInput
+        channelName={channelName}
+        setChannelName={setChannelName}
+      />
+      <UserList setSelectedUsers={selectedUsers} />
+      <div className="edit-channel__button-wrapper">
+        <p>Save Changes</p>
+      </div>
+    </div>
+  );
 }
 
 export default EditChannel;
