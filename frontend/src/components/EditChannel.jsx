@@ -39,7 +39,7 @@ function EditChannel({ setIsEditing }) {
         setChannelName={setChannelName}
       />
       <UserList setSelectedUsers={selectedUsers} />
-      <div className="edit-channel__button-wrapper">
+      <div className="edit-channel__button-wrapper" onClick={updateChannel}>
         <p>Save Changes</p>
       </div>
     </div>
