@@ -10,7 +10,8 @@ require("dotenv").config();
 //Fetch twilio credentials
 const accountSID = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const TwilioClient = require("twilio")(accountSID, authToken);
+const twilioClient = require("twilio")(accountSID, authToken);
+const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
 
 app.use(cors());
 app.use(express.json()); //allow us to pass json from frontend to backend
@@ -36,6 +37,25 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const { message, user: sender, type, members } = req.body;
+  if (type === "message.new") {
+    members
+      .filter(({ user }) => member.user_id !== sender.id)
+      .forEach(({ user }) => {
+        if (!user.online) {
+          twilioClient.message
+            .create({
+              body: `You have a new message from ${message.user.fullName} - ${message.text}`,
+              messagingServiceSid: messagingServiceSid,
+              to: user.phoneNumber,
+            })
+            .then(() => console.log("message sent !"))
+            .catch((err) => console.log(err));
+        }
+      });
+
+    return res.status(200).send("Message sent !");
+  }
+  return res.status(200).send("Not a new message requst");
 });
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
