@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useChatContext } from "stream-chat-react";
-
+import { ResultsDropdown } from "./";
 import { SearchIcon } from "../assets";
-function ChannelSearch() {
+
+function ChannelSearch({ setToggleContainer }) {
   const { client, setActiveChannel } = useChatContext();
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ function ChannelSearch() {
         name: { $autocomplete: text },
       });
 
-      // instead of using "await" in front of channelResponse and userResponse, we are using below code, where it will implement both responses at the same time, otherwise we have to wait first for channelResponse to run and then userResponse to run.
+      // instead of using "await" in front of channelResponse and userResponse, we are using below code, where it will implement both responses and get channels and users at the same time, otherwise we have to wait first for channelResponse to run and then userResponse to run.
       const [channels, { users }] = await Promise.all([
         channelResponse,
         userResponse,
@@ -45,6 +46,10 @@ function ChannelSearch() {
     getChannels(e.target.value);
   };
 
+  const setChannel = (channel) => {
+    setQuery("");
+    setActiveChannel(channel);
+  };
   return (
     <div className="channel-search__container">
       <div className="channel-search__input__wrapper">
@@ -59,6 +64,16 @@ function ChannelSearch() {
           onChange={onSearch}
         />
       </div>
+      {query && (
+        <ResultsDropdown
+          teamChannels={teamChannels}
+          directChannels={directChannels}
+          loading={loading}
+          setChannel={setChannel}
+          setQuery={setQuery}
+          setToggleContainer={setToggleContainer}
+        />
+      )}
     </div>
   );
 }
