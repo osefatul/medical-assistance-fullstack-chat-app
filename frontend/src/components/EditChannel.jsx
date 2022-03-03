@@ -28,6 +28,28 @@ function EditChannel({ setIsEditing }) {
   const [channelName, setChannelName] = useState(channel?.data?.name); //if there is a channel name we try to get it from the channel
   const [selectedUsers, setSelectedUsers] = useState([]);
 
+  const updateChannel = async (e) => {
+    e.preventDefault();
+
+    const nameChanged = channelName !== (channel.data.name || channel.data.id); //check the name of the channel is changed
+
+    // if channel names is changed then
+    if (nameChanged) {
+      await channel.update(
+        { name: nameChanged },
+        { text: `Channel name changed to ${channelName}` }
+      );
+    }
+
+    // if user is added or removed.
+    if (selectedUsers.length) {
+      await channel.addMembers(selectedUsers);
+    }
+
+    setChannelName(null);
+    setIsEditing(false);
+    setSelectedUsers([]);
+  };
   return (
     <div className="edit-channel__container">
       <div className="edit-channel__header">
