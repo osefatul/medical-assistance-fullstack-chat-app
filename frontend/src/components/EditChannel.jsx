@@ -25,7 +25,7 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
 
 function EditChannel() {
   const { channel } = useChatContext();
-  const [channelName, setChannelName] = useState(channel?.data?.name);
+  const [channelName, setChannelName] = useState(channel?.data?.name); //if there is a channel name we try to get it from the channel
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   return <div>EditChannel</div>;
