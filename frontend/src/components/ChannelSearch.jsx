@@ -24,7 +24,7 @@ function ChannelSearch() {
         name: { $autocomplete: text },
       });
     } catch (e) {
-      setQuery("");
+      setQuery(" ");
     }
   };
 
