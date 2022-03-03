@@ -23,6 +23,12 @@ function ChannelSearch() {
         id: { $ne: client.userID }, //we dont want find ourselved - so, exclude
         name: { $autocomplete: text },
       });
+
+      // instead of using "await" in front of channelResponse and userResponse, we are using below code, where it will implement both responses at the same time, otherwise we have to wait first for channelResponse to run and then userResponse to run.
+      const [channels, { users }] = await Promise.all([
+        channelResponse,
+        userResponse,
+      ]);
     } catch (e) {
       setQuery(" ");
     }
