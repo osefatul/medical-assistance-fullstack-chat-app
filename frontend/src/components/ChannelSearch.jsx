@@ -6,10 +6,17 @@ function ChannelSearch() {
   const { client, setActiveChannel } = useChatContext();
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [teamChannels, setTeamChannels] = useState([]);
+  const [directChannels, setDirectChannels] = useState([]);
 
   const getChannels = async (text) => {
     try {
       //
+      const channelResponst = client.queryChannels({
+        type: "team",
+        name: { $autocomplete: text },
+        members: { $in: [client.userID] },
+      });
     } catch (e) {
       setQuery("");
     }
