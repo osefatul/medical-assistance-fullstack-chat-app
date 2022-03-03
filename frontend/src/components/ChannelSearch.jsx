@@ -11,11 +11,17 @@ function ChannelSearch() {
 
   const getChannels = async (text) => {
     try {
-      //
-      const channelResponst = client.queryChannels({
+      // for channels
+      const channelResponse = client.queryChannels({
         type: "team",
         name: { $autocomplete: text },
         members: { $in: [client.userID] },
+      });
+
+      // for individual users
+      const userResponse = client.queryUsers({
+        id: { $ne: client.userID }, //we dont want find ourselved - so, exclude
+        name: { $autocomplete: text },
       });
     } catch (e) {
       setQuery("");
