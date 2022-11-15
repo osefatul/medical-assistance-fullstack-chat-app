@@ -1,5 +1,8 @@
 # Fullstack Real-Time Chat Application.
 
+### Intro
+Medical assistance is fullstack realtime chat application for doctors and patients to communicate with each other.
+
 We used [Stream API](https://gstrm.io/js-mastery) for building an online real-time chat application with tons of features
 
 ### Libraries
